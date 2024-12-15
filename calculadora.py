@@ -29,7 +29,7 @@ def calculadora_v2(num1: float, num2: float, operador: str) -> float:
     num2 : float
         Segundo operador.
     operador : str
-        Operador da operacão. e34rt5vh n-
+        Operador da operacão.
         Pode ser "+", "-", "*" o "/".
 
     Returns
@@ -42,14 +42,20 @@ def calculadora_v2(num1: float, num2: float, operador: str) -> float:
     ValueError
         Se o operador não for "+", "-", "*" ou "/".
     """
-    return {
-        "+": num1 + num2,
-        "-": num1 - num2,
-        "*": num1 * num2,
-        "/": num1 / num2,
-        "%": num1 % num2,
-        "^": num1 ** num2,
-    }.get(operador, float("nan"))
+    operacoes = {
+        "+": lambda: num1 + num2,
+        "-": lambda: num1 - num2,
+        "*": lambda: num1 * num2,
+        "/": lambda: num1 / num2,
+        "%": lambda: num1 % num2,
+        "^": lambda: num1 ** num2,
+    }
+    funcao = operacoes.get(operador)
+    if funcao:
+        return funcao()
+
+    return float("nan")
+
 
 def calculadora_v3(num1: float, num2: float, operador: str) -> float:
     operadores = {
@@ -65,6 +71,22 @@ def calculadora_v3(num1: float, num2: float, operador: str) -> float:
 
     return float("nan")
 
+# esta versão quando tentamos o expoente de 0, ele retorna um erro
+def calculadora_v4(num1: float, num2: float, operador: str) -> float:
+    if num2 == 0 and operador in ['/', '%']:
+        return float("nan")
+
+    operacoes = {
+        "+": num1 + num2,
+        "-": num1 - num2,
+        "*": num1 * num2,
+        "/": num1 / num2,
+        "%": num1 % num2,
+        "^": num1 ** num2
+    }
+
+    return operacoes.get(operador, float("nan"))
+
 
 if __name__ == "__main__":
 
@@ -76,7 +98,7 @@ if __name__ == "__main__":
             numero1: float = float(input('Introduza o primeiro número:'))
             numero2: float = float(input('Introduza o segundo número:'))
             operacao: str = input('Introduza a operação a realizar (+ - / *) ou (% ^):')
-            print(f'O resultado: {calculadora_v3(numero1, numero2, operacao)}')
+            print(f'O resultado: {calculadora_v2(numero1, numero2, operacao)}')
             print()
             cont: str = input('Deseja continuar? (s/n):').lower()
             if cont == 'n':

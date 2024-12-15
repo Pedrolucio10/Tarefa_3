@@ -28,9 +28,11 @@ def obter_resposta(texto: str) -> str:
     respostas = {
         ('olá', 'boa tarde', 'bom dia'): 'Olá tudo bem!',
         'como estás': 'Estou bem, obrigado!',
+        'capital de portugal': "Lisboa",
         'como te chamas': 'O meu nome é: Bot :)',
         'tempo': 'Está um dia de sol!',
-        ('bye', 'adeus', 'tchau'): 'Gostei de falar contigo! Até breve...'
+        ('bye', 'adeus', 'tchau'): 'Gostei de falar contigo! Até breve...',
+        'historia de portugal': 'Portugal tem uma rica história...',
     }
 
     for chave, resposta in respostas.items():
