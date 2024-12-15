@@ -3,6 +3,7 @@ from datetime import datetime
 
 def obter_resposta(texto: str) -> str:
     comando: str = texto.lower()
+
     respostas = {
         ('olá', 'boa tarde', 'bom dia'): 'Olá tudo bem!',
         'como estás': 'Estou bem, obrigado!',
@@ -10,7 +11,12 @@ def obter_resposta(texto: str) -> str:
         'tempo': 'Está um dia de sol!',
         ('bye', 'adeus', 'tchau'): 'Gostei de falar contigo! Até breve...',
         'horas': lambda: f'São: {datetime.now():%H:%M} horas',
-        'data': lambda: f'Hoje é dia: {datetime.now():%d-%m-%Y}'
+        'data': lambda: f'Hoje é dia: {datetime.now():%d-%m-%Y}',
+        'qual o teu trabalho?': 'Sou um chatbot, programado para ajudar!',
+        'qual é o teu humor?': 'Estou sempre bem! 😊',
+        'quem é o presidente de portugal?': 'O presidente de Portugal é o Marcelo Rebelo de Sousa.',
+        'quantos anos tens?': 'Eu não tenho idade, sou um programa!',
+        'onde vives?': 'Eu vivo na nuvem, na internet!'
     }
 
     for chave, resposta in respostas.items():
@@ -18,22 +24,12 @@ def obter_resposta(texto: str) -> str:
             if comando in chave:
                 return resposta
         elif chave in comando:
+            # Verifica se a resposta é uma função (lambda) e a executa
             if callable(resposta):
                 return resposta()
             return resposta
 
     return f'Desculpa, não entendi a questão! {texto}'
-
-
-    respostas = {
-        ('olá', 'boa tarde', 'bom dia'): 'Olá tudo bem!',
-        'como estás': 'Estou bem, obrigado!',
-        'capital de portugal': "Lisboa",
-        'como te chamas': 'O meu nome é: Bot :)',
-        'tempo': 'Está um dia de sol!',
-        ('bye', 'adeus', 'tchau'): 'Gostei de falar contigo! Até breve...',
-        'historia de portugal': 'Portugal tem uma rica história...',
-    }
 
     for chave, resposta in respostas.items():
         if isinstance(chave, tuple):
